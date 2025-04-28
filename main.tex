@@ -1,0 +1,1844 @@
+\documentclass[oneside]{book}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{cite}
+\usepackage{placeins} % Provides \FloatBarrier
+\usepackage{float} % Required for the "H" float placement option
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{colortbl}
+\usepackage[numbers]{natbib}
+\geometry{top=1in, bottom=1in, left=1in, right=1in}  % Set margins
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{natbib} 
+\usepackage{arabtex}
+\usepackage{utf8}
+
+\documentclass[a4paper,12pt]{article}
+\usepackage[table,xcdraw]{xcolor} % For row and column coloring
+\usepackage{longtable} % For tables that span multiple pages
+\usepackage{geometry}
+\geometry{margin=1in}
+\setcode{utf8}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+
+\usepackage{times}
+\usepackage{fancyhdr,graphicx,amsmath,amssymb}
+\usepackage[ruled,vlined]{algorithm2e}
+\include{pythonlisting}
+
+\usepackage{listings}
+\makeatletter
+\renewcommand\normalsize{\@setfontsize\normalsize{12}{15}}
+\makeatother
+
+\titlespacing*{\section}{0pt}{1ex}{0.5ex}
+
+% Define subsubsubsection
+\usepackage{titlesec}
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
+\setcounter{tocdepth}{4}  
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\begin{document}
+\begin{titlepage}
+  
+    \centering
+    \includegraphics[width=0.5\linewidth]{logo.jpg}
+    
+    \vspace{0.5cm} % Vertical space
+    \Large{Palestine Polytechnic University}
+    
+    \Large{College of Information Technology and Computer Systems Engineering}
+    
+    \Large{Department of Computer Systems Engineering}
+
+    \vspace{1cm}
+    \Huge\textbf{Street Painting Robot}
+    
+    \vspace{1cm}
+    
+    \Large
+    {Islam Alama \\
+    Lama Halayka}
+
+    \vspace{0.5cm}
+
+    \Large
+    {Supervised by: \\
+    Dr. Amal Dweik}
+
+    \vspace{3cm}
+    
+    \emph{To fulfill the requirements for a bachelor's degree in the field of Computer Systems Engineering}
+    
+    \vfill
+    
+    \large{2024-2025}
+\end{titlepage}
+
+\thispagestyle{empty}
+\chapter*{Acknowledgment}
+In the name of the Almighty, the most compassionate, the most merciful, who bestowed upon us strength and knowledge, enabling the successful completion of this project. Embarking on this endeavor provided us with valuable experience , we extend our gratitude to all those who contributed. Our heartfelt appreciation goes to our graduation project supervisor Dr. Amal Al-Dweik , and for the Eng.Mohammad Al Mohtaseb , for their unwavering guidance, encouragement, and support throughout the semester. We also extend our thanks to the dedicated educators in the College of Information Technology and Computer Engineering, who selflessly shared their wisdom, shaping us into diligent engineers. A special acknowledgment is due to our families, whose generous encouragement and steadfast support have been constant throughout our lives. To our friends, we express sincere gratitude for your unwavering support during this significant chapter of our journey. In conclusion, we extend our thanks to everyone who played a role in supporting and encouraging us, ultimately contributing to the successful completion of our graduation project.
+\thispagestyle{empty}
+\clearpage
+\frontmatter % Use frontmatter for pages before the main content
+
+% English Abstract
+\chapter*{Abstract}
+The manual road marking process is often time-consuming and prone to errors, leading to delays in road construction projects. To address these challenges, this project introduces a street painting robot that significantly enhances the efficiency and accuracy of street marking. This positively impacts traffic flow, economic activity, and road safety.\\\\
+
+ In order to efficiently achieve its goals, the system receives instructions about the painting process from a mobile application and integrates advanced technologies, including obstacle detection and a valve-controlled paint system for precise and regulated paint flow. Equipped with an ultrasonic sensor, the system continuously monitors paint levels and provides real-time alerts for low levels or operational problems. The robot autonomously navigates the streets and applies paint with precision, using a map-based localization system to determine its position and plan its movements. Adjust its path dynamically in response to obstacles, ensuring seamless operation and accurate line marking.\\\\
+
+After implementing and testing the system, it is successfully achieves its goals, the system minimizes human labor, reduces project timelines, and delivers superior accuracy and reliability in road construction projects, marking a significant step toward smarter, automated infrastructure development.\\\\
+
+
+\vspace{3em} % Add a space before the keywords
+
+\noindent 
+\
+Keywords: Mobile robot, street marking,obstacle detection, navigation, painting, localization.
+\newpage
+\vspace{1em} % Add a space before the Arabic keywords
+
+\noindent 
+
+\begin{RLtext}
+\small
+\textbf{\Huge الملخص }
+\vspace{1em} % Add a space before the Arabic keywords
+
+\noindent 
+\small
+تمثل عملية رسم العلامات على الطرق يدويًا تحديًا كبيرًا نظرًا لما تتطلبه من وقت طويل وما قد ينتج عنها من أخطاء، مما يتسبب في تأخير مشاريع الطرق ويؤثر على السلامة المرورية.لمواجهة هذه المشكلات، يقدم هذا المشروع روبوتًا لرسم الخطوط يعمل على تحسين كفاءة ودقة عملية التخطيط للطريق، مما يسهم في تعزيز انسيابية المرور ودعم النشاط الاقتصادي وتحسين مستويات الأمان على الطرق.
+
+
+    \vspace{1cm}
+
+من أجل تحقيق أهدافه بكفاءة، يتلقى النظام تعليمات حول عملية الطلاء من تطبيق محمول ويدمج تقنيات متقدمة، بما في ذلك اكتشاف العوائق ونظام طلاء يتم التحكم فيه بواسطة صمام لتدفق الطلاء بدقة وتنظيم. مزودًا بمستشعر بالموجات فوق الصوتية، يراقب النظام مستويات الطلاء باستمرار ويوفر تنبيهات في الوقت الفعلي للمستويات المنخفضة أو المشكلات التشغيلية. يتنقل الروبوت بشكل مستقل في الشوارع ويضع الطلاء بدقة، باستخدام نظام تحديد المواقع القائم على الخريطة لتحديد موقعه والتخطيط لحركاته. اضبط مساره ديناميكيًا استجابة للعقبات، مما يضمن التشغيل السلس وعلامات الخطوط الدقيقة.\\\\
+
+    \vspace{1cm}
+
+\\\\
+بعد تنفيذ النظام واختباره، حقق أهدافه بنجاح، حيث يقلل النظام من العمالة البشرية، ويقلل من الجداول الزمنية للمشروع، ويوفر دقة وموثوقية فائقة في مشاريع بناء الطرق، مما يمثل خطوة مهمة نحو تطوير البنية التحتية الذكية والآلية.
+
+    \vspace{2.5cm}
+
+\noindent
+
+
+
+الكلمات المفتاحية: الروبوت المتنقل، وضع علامات الطرق، اكتشاف العوائق، الملاحة، الطلاء، تحديد الموقع.
+
+\end{RLtext}
+
+
+
+\thispagestyle{empty}
+\newpage
+
+
+
+\newpage
+
+
+\tableofcontents
+\vspace{1em} % Add a space before the keywords
+
+\noindent \vspace{1em} % Add a space before the keywords
+
+\noindent 
+
+\newpage
+\listoffigures
+\newpage
+\listoftables
+
+\newpage
+
+\begin{document}
+
+\begin{flushleft}
+    {\LARGE \textbf{List of Acronyms}} % Larger title aligned to the left
+\end{flushleft}
+
+% Minimal space between title and list
+\begin{tabbing}
+\hspace{4cm} \= \hspace{8cm} \kill % Set tab stops for alignment
+\textbf{MRPT} \> Mobile Robot Programming Toolkit \\
+%\textbf{GPS} \> Global Positioning System \\
+\textbf{ROS} \> Robot Operating System \\
+\textbf{SLAM} \> Simultaneous Localization and Mapping \\
+\textbf{LiDAR} \> Light Detection and Ranging \\
+\textbf{IoT} \> Internet of Things \\
+\textbf{MQTTP} \> Message Queuing Telemetry Transport Protocol \\
+\textbf{HTTPs} \> Hypertext Transfer Protocol Secure \\
+\textbf{PID} \> Proportional-Integral-Derivative \\
+\textbf{SCADA} \> Supervisory Control and Data Acquisition \\
+\textbf{HMI} \> Human-Machine Interface \\
+\textbf{AI} \> Artificial Intelligence \\
+\textbf{PLC} \> Programmable Logic Controller \\
+\textbf{USD} \> United States Dollar \\
+\textbf{HDMI} \> High-Definition Multimedia Interface \\
+\textbf{USB} \> Universal Serial Bus \\
+\textbf{IR} \> Infrared \\
+\textbf{CSS} \> Cascading Style Sheets \\
+\textbf{PHP} \> Hypertext Preprocessor \\
+\textbf{HTML} \> Hypertext Markup Language \\
+\textbf{JDK} \> Java Development Kit \\
+\textbf{JVM} \> Java Virtual Machine \\
+\end{tabbing}
+\end{spacing}
+
+\mainmatter % Use mainmatter for the main content
+\chapter{Introduction}
+\section{Preface}
+
+
+Large road projects often experience delays in opening roads to cars, which can significantly impact traffic flow and economic activity. These delays are often attributed to the reliance on manual street layout planning, a process that is not only time-consuming but also prone to errors. Therefore, there is a pressing need to automate the street planning process for open roads. Implementing a robotic street planning system represents a crucial step toward improving efficiency and reducing delays in road projects. By automating the planning process, these systems can expedite the creation of road layouts with greater precision and accuracy. This automation minimizes human error and ensures that roads are ready for use in a more timely manner.
+\vspace{1cm} % Add a space before the keywords
+
+\noindent 
+
+\section{Problem statement}
+
+Manual processes for street layout planning are time consuming, prone to errors, and cause significant delays in road construction projects. These delays negatively impact traffic flow, economic activity, and road safety. This project proposes an innovative solution: an automated street painting robot to streamline the process, reduce project timelines, minimize human errors, and enhance overall safety. Addressing this critical issue will benefit commuters, businesses, and local communities by improving traffic flow, supporting economic activity, and ensuring precise and accurate road layouts.
+%FIXME%
+
+\section{Aims and objectives}
+In this project, we propose a system that aims to provide the following features:
+\begin{enumerate}
+  \item 
+Develop an automated street painting robot system.In order to achieve this aim, the following objectives should be accomplished:
+
+  \begin{enumerate}
+      \item Design and integrate a user interface that enables the robot to  receive precise instructions from users via Wi-Fi. Instructions include street dimensions (length and width), line position (edge or center), line type (solid or dashed), and number of lines to paint.
+
+ \item Utilize distance sensors to accurately determine the robot's position on the street relative to its dimensions and the desired line position. Calculate the distance to the designated painting location and navigate the robot accordingly.
+ \item Integrate map-based localization to analyze received location data, ensuring the robot can navigate to and pinpoint the designated drawing area accurately.
+
+  \end{enumerate}
+  %FIXME%
+  \item
+Implement efficient painting functionality. In order to achieve this aim, the following objectives should be accomplished:
+
+ \begin{enumerate}
+\item Direct the robot to the specified painting location based on distance sensor calculations.
+
+\item Initiate the painting process using a controlled paint flow valve to ensure precise and clear line markings.
+
+\item Continuously monitor the paint level in the tank. Alert the user if the paint level is low, if there are obstacles ahead, or upon completion of the painting task.
+
+\end{enumerate}
+%fixme
+
+\vspace{1em} % Add a space before the keywords
+
+\noindent 
+\end{enumerate}
+\section{Requirements}
+This section will present the list of the  functional  and non-functional requirements of the system:
+
+\subsection{Functional Requirements }
+The functional requirements of an automated mapping system are crucial to ensuring that the  system can efficiently map and locate drawing areas. The following is a list of functional requirements: 
+
+\begin{enumerate}
+    \item The system should be able to find the location of the mapping .
+\item The system should be able to check for obstacles during navigation.
+\item The system should be able to provide feedback to users when there is no paint in the pot.
+ \item The system should be able to navigate the targeted area autonomously without constant user interaction, requiring only initial data input (e.g., starting location, color of the line).
+
+\item The system should be able to control the flow of paint and draw lines clearly.
+
+
+\end{enumerate}
+\subsection{Non-functional Requirements}
+the following is a list of the non-functional requirements :
+
+
+\begin{enumerate}
+    
+\item Reliability:
+The system must be reliable and stable with minimal downtime or system failures.To ensure consistent and efficient operation, the painting robot will proactively check for obstacles and paint levels before starting work, preventing potential issues that could lead to incorrect painting or malfunctions. Additionally, error notifications will be promptly sent to the app during operation, enabling rapid resolution and minimizing downtime.
+\item Response time:
+ The system must have real-time response capabilities, which are crucial for generating alerts, starting work and mapping promptly.
+\item Availability:
+The system must be highly available to ensure it can operate at any time it is needed. This is achieved by Modular software design, which promotes high availability by enabling efficient troubleshooting and maintenance without performance impact. Robust error handling and testing ensure continuous operation.
+
+\item Accuracy: 
+The system must ensure highly accurate and precise line painting. This is achieved by the integration of algorithms that control the paint, robot motion, speed, and painting location. These algorithms continuously monitor the robot's position and painting parameters, guaranteeing consistent and precise line painting and enhancing the system's accuracy.
+\end{enumerate}
+
+\vspace{1em} % Add a space before the keywords
+
+\noindent 
+\section{System Description}
+
+     Our system primary objective is to design a mechanism for drawing lines on roads through two stages:
+     \\
+\begin{enumerate}
+    \item {The first stage is system configuration and data analysis:}
+
+
+\\
+
+\textbf{Data reception and initial analysis:} 
+The nearby user sends work area dimensions to the robot using a mobile phone app. It receives painting details such as location (end or center), color, length in meters, and number of lines.
+\\
+\textbf{Location analysis and positioning:} 
+The system utilizes map-based localization to analyze the received location data and accurately identify the designated drawing area. In addition, it evaluates the number and length of lines in relation to the overall street dimensions to ensure accurate planning and feasibility.
+\\
+\textbf{Paint and obstruction inspection:}
+Before starting the planning process, the system checks that there is enough paint to start using a sensor and verifies that there are no obstacles in front of the robot. If there is an obstacle or less in painting, the robot will send a notification to the user for manual intervention.
+
+ \\
+
+\item {The second stage is starting the paint process:}
+\\
+\textbf{Starting the painting process:} 
+ The painting process is controlled by a valve and relay system that regulates the paint flow. The relay activates the valve, allowing it to open or close as needed.
+\\
+
+\textbf{Send the report after completion:} 
+Once the painting is completed, the robot returns to the predetermined location and sends a report explaining what it has done, including any potential errors or problems identified during the process.
+\\
+\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Image_20250125_12441_060 PM.jpeg}
+    \caption{System Description}
+    \label{fig:enter-label}
+\end{figure}
+\vspace{1em} % Add a space before the keywords
+
+
+\noindent 
+\section{Limitations and constraints}
+here are some of the system limitations and constraints:
+
+\begin{itemize}
+    \item Environmental Conditions: 
+  The system may not function optimally in extreme weather conditions, such as heavy rain or extreme temperatures.These conditions could affect the accuracy and reliability of the sensors.
+  
+\item Wi-Fi connection:
+The system relies on a stable Wi-Fi connection for full functionality.  Operation may be hindered or interrupted in areas with weak .
+
+\item Terrain Limitations: 
+The robot's current design is optimized for operation on newly constructed or well-paved roads.  Its functionality on uneven or unpaved terrain may be limited.
+\end{itemize}
+
+\section{Schedule}
+
+The tasks of the system implementation and operation are distributed along the summer and the first semester summarized in Table 1.1.\newline 
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% Beamer presentation requires \usepackage{colortbl} instead of \usepackage[table,xcdraw]{xcolor}
+\begin{table}[H]
+ \centering
+    \caption{Project schedule in the summer and the first semester }
+    \label{tab:my_label}
+\begin{tabular}{|l|lll|llll|}
+\hline
+                          & \multicolumn{3}{l|}{The summer semester}                                                                                  & \multicolumn{4}{l|}{The first semester}                                                                                                                                 \\ \hline
+Week                      & \multicolumn{1}{l|}{1 - 2}                    & \multicolumn{1}{l|}{3- 7}                   & 8 - 10                  & \multicolumn{1}{l|}{1 - 5}                    & \multicolumn{1}{l|}{6 - 9}                    & \multicolumn{1}{l|}{10 - 14}                  & 15                       \\ \hline
+Selection of project Idea & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{}                         &                          & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         &                          \\ \hline
+Collecting the Data and system analysis      & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \cellcolor[HTML]{C0C0C0} & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         &                          \\ \hline
+System Design             & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \cellcolor[HTML]{C0C0C0} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         &                          \\ \hline
+System Implementation     & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         &                          & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} &                          \\ \hline
+System testing            & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         &                          & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \cellcolor[HTML]{C0C0C0} \\ \hline
+system operation          & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         &                          & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \cellcolor[HTML]{C0C0C0} \\ \hline
+Documentation             & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \cellcolor[HTML]{C0C0C0} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \cellcolor[HTML]{C0C0C0} \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\section{Report outline}
+
+This report is organized as follows: Chapter 1 provides a brief introduction to the system including the problem statement, the system requirements and system description. Chapter 2 discusses the most related keys theoretical basis and a discussion of the literature review. Chapter 3 outlines the project’s design, encompassing both hardware and software aspects. It discusses design choices, the conceptual background of the software, and presents a schematic diagram.Chapter 4 explains the system implementation, testing process, and challenges faced during implementation.Chapter 5 explains the results and discussion. Finally, Chapter 6 concludes with a summary of the work and recommendations for future improvements.
+\chapter{Background}
+
+\section{Preface}
+
+
+This chapter introduces the theoretical concepts essential to our project. Following this, we’ll dive into a literature review, comparing our project with what’s been done before. This comparison helps us highlight the unique aspects and innovations our project brings to the table. In essence, this chapter provides the background needed to understand our project’s roots and its place among previous efforts in the field.
+
+%--------------------------------------------------------------
+\vspace{1em} % Add a space before the keywords
+
+\noindent 
+\section{Theoretical background}
+This section delves into the core theoretical principles that underpin the development of our automated street painting robot system. We will explore the fundamental concepts, algorithms, and equations that govern the system's functionality in achieving precise and efficient road marking.
+
+\subsection{Simultaneous Localization and Mapping}
+Simultaneous Localization and Mapping (SLAM) is a fundamental concept in robotics that involves constructing a map of the environment while simultaneously estimating the robot's position within that map. SLAM combines localization and mapping to enable a robot to autonomously explore and navigate in unknown environments. This algorithm utilizes sensor data, such as Light Detection and Ranging (LiDAR) to incrementally build the map and refine the robot's position estimate [1].
+%----------------------------------------------------------------
+
+ \subsection {Localization}
+ 
+Localization is the process of determining the precise position of a robot within its environment. It involves estimating the robot's coordinates (e.g., x, y, and z), localization is crucial for the robot to understand its position relative to the surrounding objects and to accurately navigate and interact with the environment depth sensor to obtain information about the surrounding environment. There are common localization methods, including simultaneous localization and mapping [2].
+\vspace{1em} % Add a space before the keywords
+
+\noindent \vspace{1em} % Add a space before the keywords
+
+\noindent 
+ \subsection{Obstacles Avoidance}
+
+Obstacle avoidance is essential for the autonomous operation of the robot. The laser scanner plays a crucial role in this process by emitting laser beams and measuring the time it takes for the reflected light to return after hitting an object. This information is used to calculate the distance between the scanner and the obstacle, allowing the robot to navigate around it [3]. 
+
+
+\begin{enumerate}
+    \item Emission of laser beams: The SICK S300 consists of a rotating laser that continuously emits beams in a 170-degree arc.
+
+
+
+
+    \item Echo reception: When a laser beam strikes an object, it is reflected back to the scanner, and the sensor captures this reflected light.
+    \item  Timing: The system measures the time it takes for the reflected laser light to return.
+    \item Distance Calculation: Based on the speed of light, the distance to an object is calculated using the Equation 2.1 :
+
+    
+    
+ \begin{equation}
+\mathbf{\textit{Distance}} = \mathbf{\textit{Time}} * \mathbf{\textit{Speed of light/2}}
+\end{equation}
+
+
+Based on this information, the code is written so that it takes the appropriate action to overcome obstacles, such as ordering the robot to stop or turn.
+\end{enumerate}
+
+ 
+\subsection {Navigation}
+
+Navigation refers to the process of guiding a robot from one location to another in a given environment. Figure 2.1 provides a representation of the process that involves determining the robot's path, avoiding obstacles, and reaching the desired destination. Various algorithms and techniques are used for navigation, including path planning, object detection, and recognition [4][5].
+
+\begin{figure}[H]\centering
+    \includegraphics[width=0.5\linewidth]{Autonomous robot navigation pipeline.png}
+    \caption{ Autonomous robot navigation pipeline}
+    \label{fig:enter-label}
+\end{figure}
+\subsection{IoT protocols}
+IoT protocols are sets of rules and standards that govern the way IoT devices communicate with each other and with other systems over the internet [6]. There are many IoT protocols and standards available, and different projects and use cases might require different kinds of devices and protocols. Some of the most important IoT protocols and standards include MQTTP and  HTTPs.
+
+\subsection{Start Point Calculation for Line Painting}
+The process of determining the starting point of the first line is essential for accurate and consistent operation. The robot calculates this point based on its initial position and user-provided offsets for movement along the x and y axes. These offsets, communicated via a mobile application, define how far the robot should move from its current location to position itself at the starting point of the first line.
+This ensures that the first line begins precisely at the intended location, setting the foundation for subsequent lines to follow the defined pattern and maintain consistent spacing and alignment.
+\subsection{Laser Data Filtering }
+The laser filtering algorithm ensures safe and efficient operation by detecting obstacles in the robot's path during line drawing. The robot continuously scans its surroundings using a laser sensor, focusing on a defined angle range  and a specified distance directly in front of its movement path. It filters out irrelevant data and identifies obstacles based on their proximity to the robot's trajectory.
+\vspace{0.6cm}
+If an obstacle is detected within a critical range along the path of a line, the system evaluates its impact on the operation. When the obstacle poses a significant hindrance to completing the line, the robot skips the current line, logs the skipped line information, and notifies the user via the mobile application. This process maintains operational continuity while ensuring safety and minimizing delays.
+
+
+
+
+%FIXME: move to ch3
+\vspace{1cm} % Add a space before the keywords
+
+\section{Literature review}
+
+Many projects have shown interest in enhancing efficiency, precision, and effort-saving in automated street painting. This review discusses various design proposals aimed at improving accuracy and efficiency in street layout painting processes, following are discussions of such works.
+
+\subsection{Automatic Wood Plates Painting Machine}
+ The project in [12] aims to design an automatic machine for painting wooden plates using a spray painting technique. While this machine enhances the traditional manual painting process by ensuring higher quality, efficiency, and safety, it has several limitations. It requires frequent manual adjustments and cannot be monitored remotely, which limits its operational flexibility. The machine can handle wooden plates up to dimensions of 220*120 cm and has a production rate of 30-40 square meters per hour. Although it is equipped with SCADA technology and an HMI touch screen for diagnosing and resolving errors, the lack of remote control and limited self-checking capabilities mean that manual intervention is often necessary. This can reduce overall efficiency and productivity.
+%\newpage
+%MODIFY%
+\vspace{1em} % Add a space before the keywords
+\vspace{1em} % Add a space before the keywords
+
+\noindent 
+\subsection{Automatic wall painting machine}
+
+The system in [13] focuses on designing and developing an automatic wall painting machine to improve efficiency, safety, and the quality of wall painting tasks. While the machine is designed to save up to 85%
+on labor costs and increase productivity by 2-5 times, it has significant drawbacks. It requires frequent manual adjustments and does not support remote monitoring or control, which can be a major inconvenience in large-scale projects. The machine features a spray gun mounted on a mobile platform that moves both vertically and horizontally, controlled by an Arduino Mega 2560 microcontroller with stepper motors for precise movements. However, the lack of remote control capabilities and limited automation in obstacle handling make it less versatile compared to the Automated Street Painting Robot. The robot not only provides real-time updates and remote monitoring but also includes integrated AI for optimal path planning and autonomous rerouting around obstacles, ensuring continuous and efficient operation with minimal manual intervention.
+
+
+%MODIFY%
+\vspace{1cm} % Add a space before the keywords
+\subsection{Vertical Wall Printer}
+The system in [14] is an innovative solution designed to handle various wall painting tasks with efficiency and precision. This machine is particularly suitable for large-scale wall painting projects, offering the capability to paint different textures and heights of walls. It is equipped with extendable arms to reach various wall heights and uses advanced obstacle detection sensors, including IR and ultrasonic sensors, to ensure smooth operation. The system provides alerts for low paint, obstacles, task completion, and maintenance needs, with real-time updates sent to a central system. Controlled via an advanced HMI system integrated with a central control system, the Vertical Wall Printer ensures precise start/stop and monitoring operations,  making it a reliable choice for extensive wall painting projects. 
+
+\vspace{1cm} % Add a space before the keywords
+
+\subsection{Powder Coating Machine}
+The Powder Coating Machine in [15] is designed to provide an efficient and uniform coating for metal pieces, especially those with complex shapes. This machine uses a powder coating technique, which involves preheating metal pieces and immersing them in a powder basin to achieve a smooth and even finish. The system includes sensors to detect obstacles in the painting path, ensuring continuous operation with minimal interruptions. It offers alerts for operational status, errors, and maintenance needs through a centralized control panel and HMI. The start/stop system is controlled via PLC and HMI, allowing for precise operational control. While the machine is fixed and uses a conveyor belt to move pieces through different stages of the painting process, it excels in providing high-quality, uniform coatings, making it ideal for industrial applications.
+\\
+Same as the previous project, the difference between this system and ours is theControl System, the mobile access, and some components.\\\
+\newline 
+Our system is designed to receive painting instructions from a mobile application to initiate the painting process. It incorporates an alert mechanism that notifies users via the application about low paint levels and detects obstacles. Furthermore, the robot ensures safe and uninterrupted operation through continuous obstacle monitoring.Table 2.1 lists more differences between our project and the previously mentioned projects.
+
+
+
+
+
+\begin{longtable}{|>{\columncolor{lightgray!5}}p{2cm}|p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\caption{Comparison of Related Literatures.} \label{tab:comparison} \\ 
+\hline
+\rowcolor{lightgray!55} % Set the background color of the first row to a darker gray
+\textbf{Feature} & \textbf{Automatic Wood Plates Painting Machine} & \textbf{Automatic Wall Painting Machine} & \textbf{Vertical Wall Printer} & \textbf{Powder Coating Machine} & \textbf{Our Project} \\
+\hline
+\endfirsthead
+
+\hline
+\rowcolor{lightgray!55}
+\textbf{Feature} & \textbf{Automatic Wood Plates Painting Machine} & \textbf{Automatic Wall Painting Machine} & \textbf{Vertical Wall Printer} & \textbf{Powder Coating Machine} & \textbf{Our Project} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+% Table content
+\textbf{System Alerts} & Displays errors and status via HMI & Basic alerts for low paint and obstacles via HMI & Provides alerts for low paint, obstacles, task completion, and maintenance. Real-time updates to a central system & Alerts for operational status, errors, and maintenance needs through a centralized control panel and HMI & Alerts for low paint level, obstacles, task completion. Real-time updates sent to mobile devices and a mobile app \\
+\hline
+\textbf{Start/Stop System} & Controlled via HMI & Controlled via manual and automatic modes using a basic control panel & Controlled via an advanced HMI system, integrated with a central control system for start/stop and monitoring & Controlled via PLC and HMI for precise start/stop and operational control & Automatically controlled via mobile app, receives parameters for painting \\
+\hline
+\textbf{Mobility} & Fixed & Fixed & Fixed with extendable arms for reaching various wall heights & Fixed system with a conveyor belt for moving pieces through different stages of the painting process & Mobile with wheels for navigating streets \\
+\hline
+\textbf{Versatility in Painting} & Limited to wooden plates & Limited to wall painting & Capable of painting various wall textures and heights & Versatile in applying powder coating to different shapes and sizes, especially suited for parts with complex geometries & Capable of drawing multiple lines \\
+\hline
+\textbf{Obstacle Detection and Handling} & Fault diagnostic system with sensors and HMI to identify and display errors & Uses IR sensors to detect obstacles, alerts user, can stop to avoid collisions. Manual intervention required for rerouting & Uses advanced obstacle detection sensors, including IR and ultrasonic, with automated rerouting and manual override options & Equipped with sensors to detect obstacles in the painting path, ensuring smooth operation and minimal interruptions & Uses distance sensors and ultrasonic sensors with navigation algorithms for autonomous obstacle avoidance \\
+\hline
+\textbf{Mobile Robot Usage} & Not used & Not used & Not used & Not used & Yes \\
+\hline
+\textbf{Autonomous Movement} & Not applicable & Requires manual adjustments for non-flat surfaces & Semi-autonomous with operator assistance & Not applicable & Fully autonomous for navigation and painting \\
+\hline
+\textbf{Precision} & Moderate & Moderate & High & Moderate & High \\
+\hline
+
+\end{longtable}
+
+
+
+
+%----------------------------------------------------------------
+
+%--------------- END CHAPTER 2-----------------------------------
+\chapter{System Design}
+\section{Preface}
+
+This chapter provides an overview of the essential hardware and software components intended for our project. It explores various alternatives for each component, presents a conceptual description of the system, and introduces a general block diagram. Additionally, the chapter delves into system algorithms and methodologies through the use of flowcharts. Schematic diagrams depict the interactions and interfaces between components.
+
+\section{System components and Design options }
+By comparing the available components and evaluating different hardware and software choices, the aim is to identify the most suitable components that align with the project requirements and objectives.
+
+\subsection{ hardware component and design options}
+\subsubsection{ Mobile Robot}
+
+We need a robot to design the project and to link the components together and communicate with each other, which will be given instructions by the user through the mobile application. Table 3.1 presents the list of options for such a robot.
+
+
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison between mobile robot options}
+    \label{tab:underwater_comparison}
+    \renewcommand{\arraystretch}{1.4} % Adjust the overall row height for better spacing
+    \small
+    \setlength\tabcolsep{6pt} % Adjust the space between columns
+    \begin{tabular}{|>{\columncolor{gray!8}}p{3cm}|p{4cm}|p{5cm}|p{4cm}|}
+        \hline
+        \rowcolor{gray!20} \textbf{Requirements} & \textbf{MP-400 [18]} & \textbf{Clearpath Jackal [17]} & \textbf{Turtlebot 2 [16]} \\
+        \hline
+        \textbf{Cost} & 1,400 USD & 15,000 USD & 1,200 USD \\
+        \hline
+        \textbf{Speed} & 1.5 m/s & 2.0 m/s & 0.65 m/s \\
+        \hline
+        \textbf{Reliability} & 
+        - Exceptional odometry 
+        \newline
+        - Extended battery life 
+        \newline
+        - Stable power supply for complex sensor setups 
+        \newline
+        - Versatile customization for industrial applications
+        & 
+        - High accuracy on rough terrain \newline
+        - Long-lasting battery for outdoor research \newline
+        - Robust power supply \newline
+        - Customizable structure for research and development
+        & 
+        - Adequate for indoor navigation \newline
+        - Moderate battery life \newline
+        - Basic power supply \newline
+        - Customizable primarily for educational purposes \\
+        \hline
+        \textbf{Operating System} & PlatformPilot, ROS, ROS 2 & PlatformPilot, ROS, ROS 2 & ROS \\
+        \hline
+        \textbf{Battery Capacity} & 2,200-3,000 mAh & 270,000 mAh & 2,200-3,000 mAh \\
+        \hline
+        \textbf{Environment} & Indoor/Outdoor & Indoor/Outdoor & Primarily Indoor \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+
+
+
+For our project, the MP-400 was selected as the mobile robot platform due to its optimal combination of speed (1.5 m/s) and robust construction. The robot's differential drive system and large wheels enable precise maneuverability across various outdoor terrains, as shown in Figure 3.1. Its compatibility with ROS, ROS 2, and PlatformPilot offers flexibility in software development and integration. The design is effective for localization, navigation, and collision avoidance, making it suitable for our system[18].
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\linewidth]{Platforms-MP-400-Render.jpg}
+    \caption{Mp-400}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{Processing Unit}
+The processing unit is a critical component that drives the system's functionality. It receives and processes sensor data, executes algorithms, and controls system components. When comparing and evaluating three choices—Raspberry Pi 4, Arduino, and MP-400 Processor—we have studied the possible options, compared them, and chosen the most suitable for our project. These are presented in Table 3.2. 
+\usepackage{colortbl, graphicx, multirow} % Add this to your LaTeX preamble
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison between Processing Unit options}
+    \label{tab:my_label}
+    \small
+    \setlength\tabcolsep{5pt}
+    \begin{tabular}{|>{\columncolor{Lightgray !5}}p{2cm}|p{3cm}|p{3cm}|p{3cm}|}
+        \hline
+        \rowcolor{Lightgray !20} \multicolumn{4}{|c|}{Processing Unit} \\
+        \hline
+        \rowcolor{lightgray !5} \textbf{Requirement} & \textbf{Raspberry Pi 4b [45]} & \textbf{Arduino [44]} & \textbf{MP-400 Processor [46]} \\
+        \hline 
+        Processor & Quad-core ARM Cortex A72, 1.5 GHz & Dual-core Tensilica LX6, 240 MHz & Intel Core i5\\
+        \hline
+        RAM & 2GB, 4GB, or 8GB LPDDR4 RAM & 520 KB SRAM & 8GB RAM \\
+        \hline
+        Storage & MicroSD card slot & Up to 16 MB Flash & 200+ GB SSD \\
+        \hline
+        Processing Power & Low & Moderate & High \\
+        \hline
+        Connectivity & Ethernet, Wi-Fi, Bluetooth & UART, I2C, SPI, GPIO & Ethernet, Wi-Fi, Bluetooth \\
+        \hline
+        I/O Ports & GPIO, I2C, I2S, SPI, UART, PWM & GPIO, I2C, I2S, SPI, UART, PWM & HDMI, USB, Ethernet \\
+        \hline
+        Images & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-09 205319.png} & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-09 205332.png} & Nothing \\
+        \hline  
+    \end{tabular}
+\end{table}
+\vspace{1em} % Add a space before the keywords
+
+\noindent 
+
+Using the Arduino and MP-400 processor together in our project provides a complementary mix of features, enhancing the robot's capabilities for precise street line drawing : 
+\begin{itemize}
+    
+
+\item MP-400 Processor: The primary processing unit is the embedded computer within the MP-400 mobile robot, which can be accessed via HDMI, USB, and Ethernet sockets. This onboard computer manages the core processing tasks of the system, including navigation, obstacle detection, and control algorithms [46].
+
+\item Arduino: Used to integrate real-time sensor data processing and manage the robot's operational tasks efficiently, including monitoring critical inputs and executing control commands.
+\end{itemize}
+
+
+\subsubsection{ Obstacle Avoidance Sensor}
+
+Obstacle avoidance is a critical aspect of mobile robotics, requiring sensors that can accurately detect and measure distances to objects in the environment. We compared three of the most efficient options: laser scanner sensors, infrared (IR) sensors, and ultrasonic sensors. The comparison is presented in Table 3.3.
+%fixme table of input signals and ouptut ones.
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison between Obstacle Avoidance Sensor options}
+    \label{tab:my_label}
+    \small
+    \setlength\tabcolsep{5pt}
+    \begin{tabular}{|>{\columncolor{gray!8}}p{3.8cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+        \hline
+        \rowcolor{gray!20} \multicolumn{4}{|c|}{Obstacle Avoidance Sensor} \\
+        \hline
+        \rowcolor{gray!8} \textbf{Feature} & \textbf{Sick S300 Expert laser scanner Sensor [29]} & \textbf{Generic IR sensor [31]} & \textbf{HC-SR04 Ultrasonic sensor [30]} \\
+        \hline 
+        \textbf{Technology} & Laser-based & Infrared light & Ultrasonic sound waves \\
+        \hline
+        \textbf{Depth Sensing Range} & Up to 4 meters & 2 cm – 30 cm & Maximum range 1-4 meters \\
+        \hline
+        \textbf{Field of View} & 170 degrees & Narrow & Narrow \\
+        \hline
+        \textbf{Environmental Impact} & Not affected & Effective in various lighting conditions & May be affected by temperature and humidity \\
+        \hline
+        \textbf{Accuracy} & High & Low & Medium \\
+        \hline
+        \textbf{Images} & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-09 203850.png} & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-09 203912.png} & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-09 203931.png} \\
+        \hline      
+    \end{tabular}
+\end{table}
+
+For our system, a  laser scanner Sick S300 Expert was selected as the primary obstacle avoidance sensor due to its superior accuracy, wide 170-degree field of view, and robustness to varying light conditions. These attributes make it highly suitable for outdoor operations. As shown in Figure 3.2, the MP-400 robot features a laser scanner strategically positioned at the front, enhancing the robot's ability to detect and avoid obstacles effectively.
+\\
+\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\linewidth]{unnamed (3).jpg}
+    \caption{Positions of the laser scanner in robot MP-400}
+    \label{fig:enter-label}
+\end{figure}
+\newpage
+
+\vspace{1.5cm} % Add a space before the keywords
+
+\noindent 
+
+\noindent 
+\subsubsection{Paint Level Sensor }
+A Paint Level sensor is a crucial component for measuring the level of the painting in our system.There are two available options for the Sensor to choose from shown in Table 3.4 .
+\begin{table}[H]
+    \centering
+    \caption{Comparison between Paint Level Sensor options}
+    \label{tab:my_label}
+    \small
+    \setlength\tabcolsep{3pt}
+    \begin{tabular}{|>{\columncolor{gray!8}}p{5cm}|p{5cm}|p{5cm}|}
+        \hline
+        \rowcolor{gray!20} \multicolumn{3}{|c|}{Paint Level Sensor} \\
+        \hline
+        \rowcolor{gray!20} \textbf{Requirement} & \textbf{IR Sensor [32] [31]} & \textbf{HC-SR04 Ultrasonic Sensor [30]} \\
+        \hline 
+        \textbf{Technology} & Infrared light & Ultrasonic sound waves \\
+        \hline
+        \textbf{Method of Measuring Paint Level} & Reflects IR light off the paint surface to measure distance. & Sends ultrasonic waves and measures the return time to calculate the distance. \\
+        \hline
+        \textbf{Range} & 2 cm – 30 cm & 2 cm to 4 meters \\
+        \hline
+        \textbf{Accuracy} & ±3 & ±1 \\
+        \hline
+    \end{tabular}
+\end{table}
+An ultrasonic sensor was chosen as a device that measures the distance of an object by using sound waves. It emits high-frequency sound waves and then listens for their echo to determine the distance of an object. Ultrasonic sensors are commonly used in robotics, automation, and automotive industries is shown in figure 3.3  [30]. 
+\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.44\linewidth]{لقطة الشاشة 2024-08-09 211906.png}
+    \caption{Ultrasonic Sensor }
+   
+\end{figure}
+The ultrasonic sensor is used to measure the distance between the sensor and the paint level in the tank. The program calculates the distance between the paint level and the sensor and then determines the amount of painting in the tanks .
+
+
+
+\vspace{0.3cm} % Add a space before the keywords
+
+\noindent 
+
+\noindent 
+
+\subsubsection{Flow Control Valve }
+A valve is essential for managing the flow of paint to ensure even application. It allows for precise adjustment of the paint flow rate, ensuring consistent and controlled street markings, Two options for the flow control valve are considered in Table 3.5.
+\begin{table}[H]
+    \centering
+    \caption{Comparison between Flow Control Valve options}
+    \label{tab:my_label}
+    \small
+    \setlength\tabcolsep{3pt}
+    \begin{tabular}{|>{\columncolor{gray!8}}p{3.8cm}|p{3.5cm}|p{3.5cm}|}
+        \hline
+        \rowcolor{gray!20} \multicolumn{3}{|c|}{Flow Control Valve} \\
+        \hline
+        \rowcolor{gray!20} \textbf{Feature} & \textbf{Solenoid Valve} & \textbf{Proportional Valve} \\
+        \hline 
+        \textbf{Operation Method} & Electromechanical, on/off control & Electromechanical, variable flow control \\
+        \hline
+        \textbf{Control Type} & Digital (on/off) & Analog (variable) \\
+        \hline
+        \textbf{Response Time} & Fast & Moderate to Fast \\
+        \hline
+        \textbf{Suitability for Our System} & Suitable for systems requiring quick start/stop control & Suitable for systems requiring precise flow adjustments \\
+        \hline
+        \textbf{Cost} & 18 USD to 30 USD & Up to 40 USD \\
+        \hline
+        \textbf{Images} & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-15 031315.png} & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-15 031330.png} \\
+        \hline 
+    \end{tabular}
+\end{table}
+
+
+ The Solenoid Valve has  been selected as the flow control valve due to its fast response time and compatibility with digital on/off control. This makes it ideal for our application where the paint flow needs to be controlled quickly and reliably.
+
+
+
+\subsubsection{Relay }
+A switch that is electrically controlled is known as a "relay." A set of working contact terminals and a set of input terminals for one or more control signals make up this device. The switch may have any number of contacts in various contact configurations, such as make contacts, break contacts, or combinations of both.Relays are used when multiple circuits need to be controlled by a single signal or when a circuit needs its own, low-power signal. In order to refresh the signal coming in from one circuit by transmitting it on another circuit, relays were first used in long-distance telegraph circuits. Early computers and telephone exchanges made extensive use of relays to carry out logical operations[48][47].\\
+For our system, two relay options have been considered, as shown in Table 3.6.
+\begin{table}[H]
+    \centering
+    \caption{Comparison between Relay options}
+    \label{tab:my_label}
+    \small
+    \setlength\tabcolsep{3pt}
+    \begin{tabular}{|>{\columncolor{gray!8}}p{3.8cm}|p{3.5cm}|p{3.5cm}|}
+        \hline
+        \rowcolor{gray!20} \multicolumn{3}{|c|}{Relay [51][52]} \\
+        \hline
+        \rowcolor{gray!20} \textbf{Feature} & \textbf{Channel Relay Module} & \textbf{Electromechanical Relay} \\
+        \hline 
+        \textbf{Control Compatibility} & Directly controlled by microprocessor & May require a driver circuit or transistor \\
+        \hline
+        \textbf{Switching Speed} & Fast & Moderate \\
+        \hline
+        \textbf{Cost} & 2 USD & 8 USD \\
+        \hline
+        \textbf{Images} & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-15 032336.png} & \includegraphics[width=2cm]{لقطة الشاشة 2024-08-15 032347.png} \\
+        \hline 
+    \end{tabular}
+\end{table}
+
+
+The Channel Relay Module has been selected for the system due to its ease of implementation with the microprocessor. 
+\vspace{1em} % Add a space before the keywords
+\noindent
+
+\subsubsection{Motor}
+
+A servo motor is a precise rotary actuator used to control the position, speed, and torque of mechanical components. In this system, the servo motor is utilized to lift and lower the paint stick during the painting process. This mechanism ensures that the paint stick is lowered to apply paint when needed and raised when the robot moves without painting, optimizing efficiency and accuracy.
+
+ To determine the most suitable option, three types of actuators have been compared, as shown in Table 3.7.
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison between Motor options}
+    \label{tab:my_label}
+    \small
+    \setlength\tabcolsep{5pt}
+    \begin{tabular}{|>{\columncolor{gray!8}}p{3.8cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+        \hline
+        \rowcolor{gray!20} \multicolumn{4}{|c|}{Motor} \\
+        \hline
+        \rowcolor{gray!8} \textbf{Feature} & \textbf{Standard Servo Motor } & \textbf{Stepper Motor} & \textbf{DC Motor} \\
+        \hline 
+        \textbf{Control Precision} &High (Specific Angle Control) & Moderate (Step-Based Control) & Low (Requires Feedback Loop) \\
+        \hline
+        \textbf{Torque} &Moderate & High &High \\
+        \hline
+        \textbf{Response Speed} &Fast & Moderate & Very Fast \\
+        \hline
+        \textbf{Cost} & 5 USD & 12 USD  &8 USD \\
+        \hline
+      
+        \textbf{Images} & \includegraphics[width=2cm]{Standard-Servo-1-360x360.jpg}& \includegraphics[width=2cm]{istockphoto-505520196-612x612.jpg} & \includegraphics[width=2cm]{360_F_317281010_pvbeWgr1Gb2wvbfMo8v4nEZoKMtZyWld.jpg} \\
+        \hline      
+    \end{tabular}
+\end{table}
+
+  The Servo Motor was chosen for its ability to provide precise angular control, essential for accurately lifting and lowering the paint stick. Compared to DC motors and stepper motors, the servo motor offers simpler integration with microcontrollers, lower power consumption, and does not require additional feedback systems or complex control circuits. Its lightweight design, efficiency, and cost-effectiveness make it the ideal choice for this application, delivering reliable and precise performance while minimizing system complexity.   
+\noindent 
+\vspace{0.3cm} % Add a space before the keywords
+
+\subsection{  Software Components Options   }
+There are several other options for robot operating system frameworks that can be considered for the project, including:
+\subsubsection{    Robot Operating System     }
+
+ROS is a flexible framework for developing robot software. It provides a wide range of libraries, tools, and drivers that can be used for building inspection tasks. ROS supports various programming languages and offers a rich ecosystem of pre-built packages that can be leveraged for perception, mapping, navigation, and other functionalities[43]. There are several other options for robot operating system frameworks that can be considered for the project, including:\\
+
+
+\begin{enumerate}
+    \item ROS Noetic \\
+ a framework and toolset designed for the development of robotic software. It supports component-based architecture and programming in various languages [41].
+
+    \item MRPT \\
+ is a collection of C++ libraries and algorithms for mobile robotics applications. It offers localization, mapping, path planning, and other essential functionalities[42]. The differences between MRPT and ROS Noetic are shown in Table 3.7.
+
+\end{enumerate}
+
+
+\begin{table}[H]
+    \centering
+    \caption{Differences between MRPT and ROS Noetic}
+    \label{tab:my_label}
+    \small
+    \setlength\tabcolsep{3pt}
+    \begin{tabular}{|>{\columncolor{gray!8}}p{4.5cm}|p{4.5cm}|p{4.5cm}|}
+        \hline
+        \rowcolor{gray!20} \multicolumn{3}{|c|}{Robot Operating System} \\
+        \hline
+        \rowcolor{gray!20} \textbf{Characteristic} & \textbf{ROS Noetic [41]} & \textbf{MRPT (Mobile Robot Programming Toolkit) [42]} \\
+        \hline 
+        \textbf{Inter-platform operability} & Multi-language support & Does not support multi-language platform \\
+        \hline
+        \textbf{Language} & Python and C++ & C++ \\
+        \hline
+        \textbf{Supported Systems} & Ubuntu 20.04 LTS, Debian & Cross-platform (Windows, Linux, macOS) \\
+        \hline
+        \textbf{Tools} & Tons of tools & Inbuilt tools and external packages available \\
+        \hline
+        \textbf{Support high-end sensors and actuators} & Yes & Limited \\
+        \hline
+        \textbf{High-end capabilities} & Yes & Yes \\
+        \hline
+        \textbf{Modularity and Active community} & Yes & Yes \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+There are two programming languages available for development within the ROS noetic
+framework: C++ and Python. C++ is a powerful and efficient programming language widely used in robotics, Python was chosen because it offers a wide range of libraries and tools for development and prototyping
+
+\subsubsection{Development Tool }
+The mobile app or a web app each option has different technologies and languages to ensure a simple user experience, Table 3.8 shows the differences between them.
+
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison Development Tool options }
+    \label{tab:my_label}
+    \renewcommand{\arraystretch}{1.5} % Adjust the overall row height
+    \small
+    \setlength\tabcolsep{4pt}
+    \begin{tabular}{|>{\columncolor{gray!8}}p{3.4cm}|p{3.5cm}|p{3.5cm}|}
+        \hline
+        \rowcolor{gray!20} \multicolumn{3}{|c|}{Development Tool [39][40]} \\
+        \hline
+        \textbf{Characteristic} & \textbf{Web app} & \textbf{Mobile app} \\
+        \hline
+        \textbf{Access} & Requires opening a browser and navigating to the website, less convenient outdoors. & Immediate access after installation, optimized for quick access and navigation. \\
+        \hline
+        \textbf{Offline Access} & Requires a proper internet connection & Can be accessed even offline. \\
+        \hline
+        \textbf{Loading Speed} & Generally faster browsing experience. & Faster performance once installed. \\
+        \hline
+        \textbf{Language} & Frontend:JavaScript, HTML, CSS. Backend:PHP, Django. & Frontend: Flutter. Backend: Python, Java. \\
+        \hline
+        \textbf{Database} & MySQL, MongoDB. & MySQL \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+After careful comparison, a mobile application was chosen ,It offers optimized access and usability, making it suitable for outdoor use. The mobile app provides faster performance once installed. These advantages make the mobile app the ideal choice for our project.
+\vspace{0.4cm} % Add a space before the keywords
+
+\subsubsection{ Mobile Application Language }
+
+This section evaluates various mobile development languages. The comparison is summarized in Table 3.9.
+
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison of Mobile Applications Language}
+    \label{tab:underwater_comparison}
+    \renewcommand{\arraystretch}{1.4} % Adjust the overall row height
+    \small
+    \setlength\tabcolsep{4pt} % Adjust column padding
+    \begin{tabular}{|>{\columncolor{gray!8}}p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+        \hline
+        \rowcolor{gray!20} \textbf{Mobile Application Language} & \textbf{Flutter [35]} & \textbf{Kotlin [36]} & \textbf{Java [37]} & \textbf{React Native [38]} \\
+        \hline
+        \textbf{Supported Platforms} & Android Jelly Bean v16, 4.1.x and iOS 8+ & Android and iOS 8+ & Android apps & Android 4.0.3+ versions and iOS 8+ \\
+        \hline
+        \textbf{Language Stack} & Dart & JS and Native & Java (works on JVM) & JS and React.js \\
+        \hline
+        \textbf{Performance} & Removed JS bridging, enhanced app speed & Interoperable with Java and JVM & Fewer bugs & Higher performance, close to native apps \\
+        \hline
+        \textbf{Pricing} & Open-source platform & Free of cost & Paid updates for JDK & Open-source \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+
+
+
+We chose Flutter framework because it has high performance and is easy for beginners to programming and the User interface is easy to use as shown in Table 3.8 and the flutter have a feature called hot Reload while your application is running, you can make changes to the code and apply them to the running application. No recompilation is needed, and when possible, the state of your application is kept intact [35].
+
+\vspace{0.4cm} % Add a space before the keywords
+
+\subsubsection{Python Programming Language}
+Python is an open-source computer programming language and a high-level dynamically typed one that is among the most popular general-purpose programming languages. It is more quickly than other programming languages built in data structures. Python is combined with dynamic typing and dynamic binding which makes it has an easy structure that enhances readability and reduces the cost of code maintenance and debugging. Python programs is easy, while languages can pick up on Python very quickly. Also, beginners of use a python language find the clean syntax. and the indentation structure is easy to learn. Furthermore[34].
+
+\vspace{0.5cm}
+\subsubsection{Visual Studio Code}
+An integrated development environment. widely used, free, and open-source code editor with extensive features and support for various programming languages.
+
+
+
+
+\vspace{3cm} % Add a space before the keywords
+
+
+\section{Conceptual system design}
+The proposed system is designed to automate the process of applying street markings efficiently and accurately. The core components of the system include the MP-400 mobile robot, the MP400 processor, an Arduino microcontroller.
+\begin{itemize}
+    
+
+\item Central Processing and Control:
+The M400 processor serves as the central processing unit, receiving painting instructions and GPS coordinates from a mobile application. This allows the system to precisely control the robot's actions and ensure accurate street markings, as illustrated in the general block diagram in Figure 3.4.
+
+
+
+\item Map-Based Localization and Path Planning:  
+\\ Map-Based Navigation: The system uses a pre-defined map for localization and navigation. The instructions sent from the mobile application are processed by the Arduino microcontroller, which works in conjunction with the robot's mapping system to determine the exact location for street markings.  
+ \\ Path Planning:The processor and Arduino collaborate to adjust and plan the robot’s path dynamically, ensuring it follows the designated route with precision for accurate paint application.
+\item Obstacle Detection and Avoidance:
+A laser scanner continuously monitors the robot's surroundings to detect obstacles and measure distances to nearby objects. If an obstacle is detected within a predefined proximity, the robot's path is automatically adjusted to avoid it.
+\item Paint Flow Control:
+The system incorporates a solenoid valve and relay to regulate the flow of paint. This allows for precise control over paint application, ensuring consistent and clear street markings.
+\item Paint Level Monitoring:
+An ultrasonic sensor monitors the paint tank's content, sending notifications to the mobile application in case of low paint levels or unexpected obstructions. This ensures timely alerts and efficient operation of the system.
+
+This comprehensive setup,is detailed in the system's conceptual diagram, as shown in Figure 3.5.
+
+
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{BD11.jpeg}
+    \caption{System block diagram}
+    \label{fig:enter-label}
+\end{figure}
+
+
+   \begin{figure}[H]
+       \centering
+       \includegraphics[width=0.7\linewidth]{Image_20250104_112006_709 PM.jpeg}
+       \caption{System conceptual diagram}
+       \label{fig:enter-label}
+   \end{figure}
+
+
+\vspace{1em} % Add a space before the keywords
+
+%\noindent \vspace{20em} % Add a space before the keywords
+
+%\noindent
+\newpage
+\section{ Sequence diagrams}
+Figure 3.6 shows the sequence diagram of a street painting robot system.
+\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\linewidth]{Image_20241221_50219_747 PM.jpeg}
+    \caption{Sequence diagram of a street painting robot system}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\vspace{1em} % Add a space before the keywords
+
+\noindent 
+\vspace{2em} % Add a space before the keywords
+
+\noindent 
+\vspace{1em} % Add a space before the keywords
+
+\noindent 
+\newpage
+\section{Schematic diagram  }
+Figure 3.7 Schematic Diagram of Ultrasonic Sensor, Valve, Relay, and Servo Motor with Arduino
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.1\linewidth]{ااا.pdf}
+    \caption{Schematic diagram for DC Motor(MP400 robot) with Ardunoi}
+    \label{fig:enter-label}
+\end{figure}
+
+The MP400 mobile robot is an autonomous system designed for navigation and task execution, with onboard processors managing movement, obstacle avoidance, and peripheral integration.
+
+Arduino, connected to the MP400 via USB, controls specific components. The servo motor is connected to pin 6, the ultrasonic sensor to pins 2 (TRIG) and 3 (ECHO), and the relay to pin 4, powered by a 24V supply with its COM terminal connected to the valve, as shown in Figure 3.7.
+
+ MP400 processor manages navigation, motor control, and communication with the Arduino, sending commands for peripheral operations and processing feedback for synchronized tasks like paint flow and obstacle detection.
+
+\vspace{1em} % Add a space before the keywords
+
+\noindent 
+
+
+
+
+\section{Pseudo-Code}
+This pseudo-code outlines the procedure for a mobile robot that is designed to navigate autonomously, avoid obstacles, and manage painting operations. The robot receives operational instructions from a mobile application, processes sensor data to check for obstacles, and continues the process until the drawing task is completed.
+
+
+\
+
+
+
+
+
+\begin{algorithm}[H]
+\caption{Mobile Robot Painting and Obstacle Avoidance (Using AMCL Pose)}
+\textbf{Begin} \\
+
+\textbf{Set} SAFE\_DISTANCE = 0.5 \textit{meters} \\
+\textbf{Set} PAINT\_LEVEL\_THRESHOLD = 15 \textit{cm} \\
+
+\textbf{WAIT UNTIL} instructions are received \textbf{FROM} the mobile application \\
+\textbf{RECEIVE} line\_details \textbf{AND} painting\_parameters \\
+
+\textbf{Initialize hardware state: CLOSE valve, RESET servo (Raise paint stick)} \\
+
+\While{task \textbf{IS NOT} completed}{
+    \textbf{READ} robot\_position (x\_current, y\_current) \textbf{FROM} AMCL Pose \\
+    \textbf{READ} paint\_level \\
+    \If{paint\_level $<$ PAINT\_LEVEL\_THRESHOLD}{
+        \textbf{PUBLISH} "Paint level is low" \textbf{TO} mobile application \\
+        \textbf{HALT} painting operation \textbf{UNTIL} refilled \\
+        \textbf{CONTINUE TO} next iteration \\
+    }
+    \textbf{READ} distance\_to\_object \textbf{FROM Laser Scanner} \\
+    \If{distance\_to\_object $\leq$ SAFE\_DISTANCE}{
+        \textbf{PUBLISH} "Obstacle detected" \textbf{TO} mobile application \\
+        \textbf{CHANGE} path \textbf{TO} avoid obstacle \\
+        \textbf{CONTINUE TO} next iteration \\
+    }
+    \If{robot\_position \textbf{IS AT} target\_location \textbf{AND} paint\_level $\geq$ PAINT\_LEVEL\_THRESHOLD \textbf{AND} distance\_to\_object $>$ SAFE\_DISTANCE}{
+        \textbf{ACTIVATE} relay \\
+        \textbf{LOWER} paint stick \textbf{USING} servo motor \\
+        \textbf{OPEN} valve \textbf{TO} start paint flow \\
+        \textbf{MOVE} robot \textbf{ALONG calculated path} (start $\rightarrow$ end) \\
+        \textbf{CLOSE} valve \textbf{TO} stop paint flow \\
+        \textbf{RAISE} paint stick \textbf{USING} servo motor \\
+        \textbf{DEACTIVATE} relay \\
+    }
+}
+\textbf{SEND} "Task Complete" notify \textbf{TO} mobile application \\
+
+\textbf{End}
+\end{algorithm}
+
+
+
+
+
+\vspace{1cm}
+\section{Summary}
+In this chapter, we have discussed the system hardware and software components with their alternatives. The conceptual description of the system and the general flow of the system with all necessary diagrams are presented, too.
+ \newpage
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ \chapter{System Implementation and Testing}
+ \section{Overview}
+This chapter provides an overview of the software and hardware 
+implementation, testing and validation, issues and challenges related to the implementation.
+\section{Implementation Issues}
+\subsection{Hardware Implementation}
+This section describes the hardware components used in the project and 
+their respective functionalities.
+\subsubsection{MP 400 Mobile Robot }
+he MP 400 is the primary processing unit responsible for managing the 
+overall operation of the robot. \textbf{It handles:}
+
+\begin{itemize}
+    \item  Navigation and mapping tasks using ROS (Robot Operating System).
+
+    \item  Obstacle detection through the laser scanner and path planning.
+
+\end{itemize}
+Access to the processor for monitoring and debugging is achieved using a VNC application installed on a laptop, which allows remote operation,as shown in Figure 4.1.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.38\linewidth]{vnc_connect.png }
+    \caption{Robot processor accessed via VNC}
+    \label{fig:enter-label}
+\end{figure}
+\subsubsection{Arduino}
+The Arduino Uno serves as a secondary processor and is used for direct 
+hardware control. It is connected to the MP 400 processor via a USB cable as shown in figure 4.2, The Arduino performs the following functions:
+\begin{itemize}
+    \item  Opening and closing the valve.
+\item  Controlling the servo motor angle to lift the paint roller based on the 
+robot position.
+\item  Controlling the relay state (ON/OFF).
+    
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{robot_ardunio.png }
+    \caption{ Arduino connected to MP 400 via USB}
+    \label{fig:enter-label}
+\end{figure}
+\subsubsection{Ultrasonic Sensor}
+An Ultrasonic Sensor is mounted on top of the paint canister to monitor the paint level as shown in figure 4.3. The sensor continuously measures the distance from the top of the canister to the paint surface.
+\begin{itemize}
+    \item If the distance drops below 15 cm, it indicates that the paint level is low.
+\item A warning message is sent to the mobile application via the MQTT protocol to alert the user as shown in figure 4.4.
+
+\end{itemize}
+This system ensures uninterrupted operation by alerting the user before the paint runs out.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Image_20241217_41720_902 PM.jpeg}
+    \caption{Ultrasonic sensor postion}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{لقطة الشاشة 2025-01-01 204410.png}
+    \caption{Low-paint notification sent to mobile app}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsubsection{Servo Motor   }
+
+The Servo Motor plays a critical role in controlling the position of the 
+paint roller, The roller is placed at the back of the robot to avoid 
+interference with the laser scanner at the front:
+\begin{itemize}
+    \item It lifts the roller with Angle 0°:when the robot is not in the painting zone.
+\item It lowers the roller with Angle 120° :when the robot begins drawing 
+lines as shown in figure 4.5 .
+
+
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{لقطة الشاشة 2025-01-01 204848.png}
+    \caption{Roller position controlled by servo motor}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsubsection{Valve and Relay}
+
+The Valve and Relay System is critical for controlling the flow of paint 
+from the canister to the roller during the painting process.
+\textbf{Valve Functionality:}
+\begin{itemize}
+    \item The valve opens to allow paint flow only when the robot begins drawing the lines.
+\item The valve closes in all other positions.
+\end{itemize}
+
+\textbf{Valve Placement:}
+
+The valve is strategically placed at the lower end of the canister to allow 
+smooth paint flow . This ensures consistent and uninterrupted paint flow 
+without requiring additional pressure mechanisms as shown in figure 4.6. 
+
+\textbf{Relay Control:}
+
+The relay acts as an electronic switch that controls the ON/OFF states 
+of the valve:
+\begin{itemize}
+    \item  ON: The relay activates the valve to start the paint flow when the robot enters the painting zone.
+\item  OFF: The relay deactivates the valve, stopping the paint flow at the end of each line.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{لقطة الشاشة 2025-01-01 205858.png}
+    \caption{ Placement of the valve}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsubsection{ Laser Scanner }
+
+
+The Laser Scanner is mounted at the front of the robot to detect 
+obstacles and provide environmental data for navigation as shown in 
+figure 4.7. Its main functionalities are:
+
+\begin{enumerate}
+    \item Obstacle Detection: Continuously scans the area in front of the robot and Detects obstacles within 0.5 meters as shown in figure 4.8 .
+\item  Mapping and Navigation: used to Generates a 2D map of the 
+environment using SLAM algorithms, Provides essential data for path 
+planning.
+
+\end{enumerate}
+The laser scanner ensures safe and autonomous movement during line 
+drawing operations.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{لقطة الشاشة 2025-01-01 210317.png}
+    \caption{ Laser scanner mounted on the front of the robot}
+    \label{fig:enter-label}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{laser_rviz.png}
+    \caption{RViz visualization showing detected obstacles (red) and navigation path (blue).}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsection{ Software implemation}
+
+This section covers the initial setup of the software environment, This step is critical to ensure the system supports the development and operation of the robotic application.
+
+\subsubsection{ROS-Related Implementation}
+This section covers all installations and configurations related to ROS Noetic and its usage for the robot operations.
+
+\paragraph{Installing Ubuntu Mate 20.04 Operating System}
+We used Ubuntu Mate 20.04 to ensure stability and compatibility with ROS Noetic.
+
+
+\paragraph{ Installing ROS Noetic}
+ROS Noetic serves as the core framework for the system, providing essential tools for robot control, sensor integration, and navigation. It includes critical packages such as ros environment and catkin to enable operation with the MP 400 robot and its sensors.
+
+\begin{enumerate}
+    \item Installation Commands:
+    
+To install the latest ROS Noetic on Ubuntu Mate 20.04, use the 
+following commands:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{لقطة الشاشة 2025-01-01 211826.png}
+\end{figure}
+
+\item Configure the ROS environment:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{لقطة الشاشة 2025-01-01 211845.png}
+
+\end{figure}
+\end{enumerate}
+
+\paragraph{ MP 400 Installation}
+Installing essential MP 400 packages, not included with ROS Noetic, is crucial. These packages include mp400 apps, launch files, mp400 viz, and mp400 bringup. They enhance the robot's capabilities for various tasks.Use the following commands to install the packages:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{لقطة الشاشة 2025-01-01 213053.png}
+\end{figure}
+
+\paragraph{ Mapping Using SLAM}
+We chose the GMapping algorithm, a laser scanner-based SLAM, to build a2D map. The steps are:
+\begin{enumerate}
+    \item  Launch the basic robot drivers and hardware interface:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{===.png}
+\end{figure}
+\item  Start the GMapping algorithm for SLAM:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{لقطة الشاشة 2025-01-01 213526.png}
+\end{figure}
+
+
+
+\item  Launch RViz to visualize the map and robot posetion:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{لقطة الشاشة 2025-01-01 213540.png}
+\end{figure}
+
+
+
+\item  Control robot movement using teleoperation:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{لقطة الشاشة 2025-01-01 213553.png}
+\end{figure}
+
+
+
+\item Save the generated map as shown in figure 4.9:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{لقطة الشاشة 2025-01-01 213612.png}
+\end{figure}
+
+
+    
+\end{enumerate}
+ 
+ \begin{figure}[H]
+     \centering
+     \includegraphics[width=1\linewidth]{لقطة الشاشة 2025-01-01 214048.png}
+     \caption{Generated 2D map}
+     \label{fig:enter-label}
+ \end{figure}
+
+
+
+
+
+ \paragraph{Navigation}
+The navigation module enables the robot to autonomously plan and 
+execute movements using the generated map. The system dynamically 
+adjusts the robot path to reach predefined goals while avoiding obstacles using the command:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{hhhhhhhh.png}
+\end{figure}
+The robot navigation area and movement can be visualized using the RViz tool as shown in in figure 4.8 , where:
+
+\begin{itemize}
+    \item Blue lines represent the planned navigation path.
+\item Red zones indicate obstacles detected by the laser scanner.
+\end{itemize}
+
+
+\subsubsection{  Robot Painting System Testing}
+
+This section provides a detailed explanation of the software implementation related to the system. Key code snippets are included for clarity, covering robot movement, position detection, and line handling.
+
+\paragraph{ Line Start Point Calculation}
+To determine the robot's starting point for drawing lines, the system calculates the position based on the robot's current pose and user-specified parameters like front-back and left-right movements.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\linewidth]{code_startpoint.png}
+\end{figure}
+
+
+\paragraph{Data Processing for Line Start and End Points}
+The robot accepts user input (such as line length, number of lines, and spacing) and calculates the starting and end points for each line sequentially.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.93\linewidth]{claction code.png}
+\end{figure}
+\paragraph{Hardware Control Based on Position}
+The hardware control (valve, relay, servo motor) is managed based on the robot position and goals. The valve opens when the robot reaches a line start and closes when the line is complete.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{hardwe_code.png}
+\end{figure}
+
+
+
+
+
+\paragraph{Laser filter data}
+The robot processes laser scan data to detect obstacles within a 270-degree field of view. To determine if an obstacle is present within a specific distance and directly in front of the robot, it is necessary to apply a filtering mechanism to the laser data. This filtering ensures that only the relevant data within the robot's forward direction is analyzed, improving the efficiency of obstacle detection and navigation.
+
+\begin{figure}[H]
+    \centering
+       \includegraphics[width=0.9\linewidth]{laser_filter code.png} % Replace with the actual file name
+    \caption{Laser data filtering code implementation.}
+\end{figure}
+
+
+
+
+
+\subsection{ Mobile Application Implementation}
+The mobile application serves as a bridge between the robot and the user, enabling real-time communication, monitoring, and control. Integration is achieved using the MQTT protocol, which ensures efficient and lightweight data exchange.
+
+\subsubsection{ MQTT Protocol}
+The MQTT protocol is used to facilitate communication between the robot and the mobile application. It follows a publish/subscribe model where:
+\begin{itemize}
+    \item  The robot publishes real-time status updates (e.g., paint level,obstacles) to designated topics.
+\item  The mobile application subscribes to these topics to receive updates instantly.
+\item The user can also send control commands (e.g., start/stop painting) to the robot by publishing messages from the app.
+
+
+A Python script handles the MQTT communication by subscribing to and publishing messages to appropriate topics from the ROS nodes.
+\end{itemize}
+
+\subsubsection{ User Interface Design}
+A simple and user-friendly mobile application was developed to allow real-time interaction with the robot. The user interface is designed for clarity and easey of use, as shown in Figure 4.11:
+\begin{itemize}
+    \item  Displays the data of the drawing process being sent to the robot.
+\item  Indicates the button used to publish data to the MQTT broker.
+\item Displays messages received from the robot, such as:Low paint level alerts ,Obstacle detection notifications and Completion of the line drawing process.
+\item  Provides a button to stop the robot operation.
+
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\linewidth]{send data.jpeg}
+    \caption{Mobile app user interface showing data exchange with the robot}
+\end{figure}
+
+
+\section{Challenges}
+\begin{itemize}
+    \item An issue occurred due to incorrect installation of the robot's packages, which was not immediately identified. The problem was resolved by reinstalling all the necessary packages.
+    \item The robot displayed angular movement during operation. This was addressed by creating a new map and making adjustments to the angle settings.
+    \item Transferring data between the robot processor and the mobile application posed a challenge. This issue was resolved by implementing the MQTT protocol, which facilitated seamless communication.
+    \item The limited testing space for the robot’s movement presented difficulties, as the area was insufficient to simulate real-world scenarios effectively.
+    \item Testing line drawing in small and confined areas, particularly within the university environment, posed challenges for precision and accuracy.
+\end{itemize}
+
+
+
+\section{ System Validation and Testing}
+This section focuses on testing individual hardware components and 
+verifying their functionality within the integrated system to ensure proper operation.
+\subsection{System Testing}
+\subsubsection{ Hardware Component Testing}
+To ensure each hardware component functions correctly, the following tests were performed:
+
+\paragraph{ Ultrasonic Sensor Testing}
+If the paint level is below 15 cm, a warning message is sent to the mobile application as shown in figure 4.12.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{ultssnoic_data.png}
+    \caption{Testing the Ultrasonic Sensor}
+    \label{fig:enter-label}
+\end{figure}
+
+\paragraph{Laser Scanner Testing}
+Verify the /scan topic:
+\newline
+rostopic list
+
+\paragraph{Valve Testing}
+• Test the valve functionality by manually activating it and observing the paint flow:
+\newline
+rostopic echo /valve state
+
+\paragraph{Relay Testing}
+Verify relay behavior by observing its ON/OFF state using the 
+command :
+\newline
+rostopic echo /relay control
+\subsubsection{ System Testing}
+This section explains how to comprehensively test the system's overall functionality, ensuring autonomous operation, mobile app
+communication, correct line drawing, and obstacle handle.
+
+\paragraph{Mobile Application Connectivity Testing} 
+Execute the MQTT script to send data using the mobile application. Confirm that the data is successfully published and saved to a file. The published data and its corresponding results are displayed in Figure 4.13. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{data_from_mobile_app.png}
+    \caption{MQTT Data Published in the Mobile Application}
+\end{figure}
+
+
+\paragraph{ Line Drawing Accuracy Testing}
+To verify that the robot draws lines accurately and in the correct position:
+\begin{enumerate}
+    \item Compare the intended movement (target positions) with the actual movement by saving the target data to a file and comparing it with the real robot movement as  shown in  figure 4.15.
+\item Steps to verify the drawing:
+\end{enumerate}
+
+\begin{itemize}
+    \item  Use the robot navigation goal and check its actual movement using pose data.
+\item Compare the target coordinates (start and end points of the line) with the actual coordinates the robot reached as shown in Figure 4.14. 
+
+\item Calculate the error in position equation 4.1:
+
+
+
+\begin{equation}
+\mathbf{\textit{Error}} (\, \%) = \frac{\mathbf{\textit{Target Position}} - \mathbf{\textit{Actual Position}}}{\mathbf{\textit{Target Position}}} \times 100
+\end{equation}
+
+
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{comperrr.png}
+    \caption{ Compare the target coordinates}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{data.png}
+    \caption{Comparison file for validating robot position against saved data.}
+\end{figure}
+
+
+\subsection{Obstacle in Line Drawing Path}
+
+\begin{itemize}
+\item If an obstacle is detected in the line drawing path, the robot immediately skips the line to avoid delays since the entire painting process is time-sensitive and takes only a few minutes. 
+
+\item A notification is sent to the mobile application, specifying that the line has been skipped along with the line number, ensuring the user is informed promptly.
+
+\item his process ensures efficient operation without compromising the overall painting workflow, as shown in Figure 4.16.
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{cancle_in_mobile.jpeg} % Replace with the actual file name and path
+    \caption{ notification the user obstacle in Line Drawing Path }
+    \label{fig:obstacle_handling}
+\end{figure}
+
+
+
+
+
+\subsection{System Validation}
+After connecting and testing each component, the robot is fully assembled,and the Python code is run to verify system functionality. The robot correctly goes to the starting point, draws lines, identifies its location on the 
+map, and interacts with the mobile app in real time.
+
+\section{ Summary}
+In this chapter, we reviewed the hardware and software implementation. Each component was fully explained, followed by a discussion of the validation and testing procedures, including unit and integration testing, to ensure the system's functionality. Lastly, we addressed the issues and challenges faced during the implementation phase.
+
+ 
+ 
+
+ 
+ 
+ \chapter{Discussion of Results}
+
+ \section{Preface}
+This chapter examines the performance of the Street Painting Robot, emphasizing its operational efficiency, obstacle-handling capabilities, and the role of user-configurable parameters in achieving project objectives. Key results are discussed to showcase its functionality and reliability.
+
+\vspace{0.3cm}
+\section{Discussion of Results}
+The Street Painting Robot showcases the integration of robotics and IoT for automating street painting. The following key aspects highlight the system's functionality and effectiveness:
+
+\subsection {Streamlined Operation}
+The robot automates the line-drawing process with minimal human intervention, following predefined paths and executing tasks with precision. This ensures consistent results and simplifies operations for the user.
+
+\subsection{Handling of Obstacles}
+During operation, the robot detects obstacles in its path and takes immediate action by skipping obstructed lines. This approach maintains the overall workflow, as delays are minimized. Notifications detailing skipped lines and their respective numbers are sent to the mobile application, keeping the user informed.
+
+\subsection{Impact of Line Parameters}
+Testing revealed that the performance of the system is influenced by the length of lines and spacing between them:
+\begin{itemize}
+    \item Longer Lines: Drawing longer lines (e.g., 5 meters) results in smoother execution compared to shorter lines (e.g., 2 meters). This is attributed to fewer adjustments during movement.
+    
+\item Wider Spacing: Increased spacing between lines reduces overlap, improving the clarity and uniformity of the painted results.
+\end{itemize}
+\vspace{1cm}
+\vspace{0.4cm}
+
+\subsection{Integration with the Mobile Application}
+The mobile application plays a critical role in managing the system. It allows the user to configure painting parameters, monitor progress, and receive status updates, ensuring full control over the operation.
+
+\subsection{System Resilience}
+The robot effectively manages challenges such as low paint levels and obstacles without significant interruptions. Automated responses and real-time notifications ensure smooth and continuous operation, enhancing the overall user experience.
+
+
+\vspace{1cm}
+
+\section{Summary}
+The Street Painting Robot demonstrates efficient and reliable performance in automating road marking. It effectively integrates robotics and IoT to streamline operations, handle obstacles, and adapt to user-defined parameters, ensuring precision and continuity in its tasks.
+
+\vspace{1cm}
+\chapter{Conclusion and future work}
+\section{Preface}
+The chapter introduces a summary of the project and future work.
+\section{Conclusion}
+
+The Street Painting Robot automates the process of road marking through a carefully integrated system of hardware and software. The MP-400 mobile robot, equipped with advanced sensors, an Arduino microcontroller, and ultrasonic sensors, works in tandem with the Robot Operating System (ROS) to deliver precise and autonomous street painting capabilities.
+\newline
+ \newline 
+ The process begins with a mobile application, where users configure painting parameters such as street dimensions, line lengths, colors, and spacing. These details are transmitted to the robot via MQTT communication, enabling real-time updates and centralized control. During operation, the robot receives instructions, calculates line positions, and begins its task. If the paint level is low or an obstacle is detected, the system sends notifications to the mobile app, ensuring the operator is always informed.
+\newline
+ \newline 
+The robot navigates using map-based localization, calculating paths for each line and dynamically adjusting based on real-time feedback from sensors. It ensures accuracy by managing paint flow with servo motors and valves, while ultrasonic sensors monitor the paint level in the canister. This approach guarantees precise and continuous operation without human intervention.
+\newline
+ \newline
+
+As a conclusion , the Street Painting Robot demonstrates the effective integration of robotics and IOT to automate street painting. By streamlining the line-drawing process, reducing errors, and enabling real-time communication through the mobile app, the system offers a reliable, efficient, and scalable solution for Road infrastructure projects .
+\newpage\section{Future work}
+\begin{enumerate}
+    \item \textbf{Advanced Shape and Curve Painting:} \\
+    Enhancing the robot's capabilities to include the painting of complex patterns such as curves and geometric shapes (e.g., rectangles and circles), thereby broadening its functional scope.
+
+    \item \textbf{Simultaneous Multi-Line Painting:} \\
+    Developing the ability for the robot to paint multiple lines concurrently, significantly improving operational efficiency and reducing the overall time required for large-scale street marking projects.
+
+    \item \textbf{AI-Powered Image Analysis for Autonomous Drawing:} \\
+    Incorporating artificial intelligence to enable the robot to analyze input images and autonomously replicate them as street markings. This feature would allow the robot to translate intricate designs or symbols directly onto surfaces with precision.
+
+\newpage
+\fancyhf{} % Clear all headers and footers
+\fancyhead[L]{References} % Add "References" to the left side of the header
+\renewcommand{\headrulewidth}{0pt} % Remove the horizontal line in the header (if desired)
+\pagestyle{fancy} % Apply the fancy header style
+\chapter*{References}
+
+
+[1] MathWorks, "What Is SLAM (Simultaneous Localization and Mapping) – MATLAB & Simulink," [Online]. Available: https://www.mathworks.com. Accessed: Jul. 7, 2024.
+\newline\newline
+
+[2] IEEE Xplore, "Localization and Navigation for Indoor Mobile Robot Based on ROS," IEEE Transactions on Robotics, vol. 40, no. 2, pp. 256–268, Aug. 2024. [Online]. Available: https://ieeexplore.ieee.org.
+\newline\newline
+
+[3] SICK, "S300 Safety Laser Scanners," SICK Technical Reports, Sep. 2024. [Online]. Available: https://www.sick.com. Accessed: Oct. 5, 2024.
+\newline\newline
+
+[4] ResearchGate, "Robot navigation with obstacle avoidance in unknown environment," International Journal of Advanced Robotics, vol. 38, no. 3, pp. 189–200, Nov. 2024. [Online]. Available: https://www.researchgate.net.
+\newline\newline
+
+[5] Control.com, "An Introduction to Simultaneous Localization and Mapping (SLAM) for Robots," Automation Journal, Oct. 2024. [Online]. Available: https://control.com.
+\newline\newline
+
+[6] Nabto, "A complete guide to IoT protocols standards in 2023," IoT Journal, vol. 21, no. 4, pp. 345–359, Dec. 2024. [Online]. Available: https://www.nabto.com.
+\newline\newline
+
+[7] Coursera, "What is the internet of things (IoT)? with examples," IoT Online Learning, Jul. 2024. [Online]. Available: https://www.coursera.org/articles/internet-of-things. Accessed: Aug. 12, 2024.
+\newline\newline
+
+[8] P. Gupta, "Sensor Device," TechTarget Journal, vol. 10, no. 5, pp. 22–30, Oct. 2024. [Online]. Available: https://www.techtarget.com/whatis/definition/sensor.
+\newline\newline
+
+[9] SparkFun, "Ultrasonic Distance Sensor HC-SR04," SparkFun Electronics, Nov. 2024. [Online]. Available: https://www.sparkfun.com/products/15569.
+\newline\newline
+
+[10] MaxBotix, "How HC-SR04 Ultrasonic Sensor Works Interface It With Arduino," Robotics World, vol. 12, no. 8, pp. 112–120, Dec. 2024. [Online]. Available: https://maxbotix.com/blogs/blog/how-ultrasonic-sensors-work.
+
+\newline\newline
+
+[11] Omega Engineering, "What is a PID Controller?" Omega Technical Reports, vol. 15, no. 3, pp. 45–53, Jul. 2024. [Online]. Available: https://www.omega.com.
+\newline\newline
+
+[12] PPU Documentation, "Automatic Wood Plates Painting Machine documentation," PPU Research Papers, Aug. 2024. [Online]. Available: https://scholar.ppu.edu.
+\newline\newline
+
+[13] PPU Documentation, "Automatic Wall Painting Machine documentation," PPU Research Papers, Sep. 2024. [Online]. Available: https://scholar.ppu.edu.
+\newline\newline
+
+[14] PPU Documentation, "Vertical Wall Printer," Robotics Innovation Reports, Nov. 2024. [Online]. Available: https://scholar.ppu.edu.
+\newline\newline
+
+[15] L. and Y. Yousef, "Powder Coating Machine," Robotics Engineering Studies, Dec. 2024. [Online]. Available: https://scholar.ppu.edu.
+\newline\newline
+
+[16] Clearpath Robotics, "TurtleBot 2 - Open source personal research robot," Robotics Research Catalog, vol. 20, no. 5, pp. 115–123, Jul. 2024. [Online]. Available: https://clearpathrobotics.com.
+\newline\newline
+
+[17] Clearpath Robotics, "Jackal UGV - Small Weatherproof Robot - Clearpath," Robotics Research Catalog, Aug. 2024. [Online]. Available: https://clearpathrobotics.com.
+\newline\newline
+
+[18] Neobotix, "Mobile Robot MP-500," Robotics Journal, vol. 34, no. 6, pp. 78–85, Oct. 2024. [Online]. Available: https://www.neobotix-robots.com/products/mobile-robots/mobile-robot-mp-500.
+\newline\newline
+
+[19] TurtleBot, "A ‘Getting started’ guide for developers interested in robotics," Learn TurtleBot and ROS, Jul. 2024. [Online]. Available: https://learn.turtlebot.com.
+\newline\newline
+
+[20] ROS Components, "Online store for robotic products supported by ROS," Robotics Components Reviews, vol. 18, no. 7, pp. 90–97, Dec. 2024. [Online]. Available: https://www.roscomponents.com.
+\newline\newline
+
+[21] Raspberry Pi, "Raspberry Pi 4 Model B," Raspberry Pi Technical Datasheets, vol. 12, no. 3, pp. 23–29, Jul. 2024. [Online]. Available: https://www.raspberrypi.com.
+\newline\newline
+
+[22] TurtleBot, "A ‘Getting started’ guide for developers interested in robotics," Learn TurtleBot and ROS, Robotics Guides, Aug. 2024. [Online]. Available: https://learn.turtlebot.com.
+\newline\newline
+
+[23] ResearchGate, "Features of Kinect Sensor V2," ResearchGate Technical Reports, Sep. 2024. [Online]. Available: https://www.researchgate.net.
+\newline\newline
+
+[24] Neobotix, "Laser Scanner (Page 36) in MP500 Manual," Robotics Technical Documentation, vol. 21, no. 5, pp. 102–110, Oct. 2024. [Online]. Available: https://www.neobotix-robots.com.
+\newline\newline
+
+[25] Neobotix, "Mechanical Properties and Sensor Position for MP500," Robotics Systems Manuals, vol. 22, no. 6, pp. 45–52, Nov. 2024. [Online]. Available: https://www.neobotix-docs.de.
+\newline\newline
+
+[26] IJSTE, "Indoor SLAM using Kinect Sensor," International Journal of Science Technology and Engineering, vol. 30, no. 4, pp. 123–130, Dec. 2024. [Online]. Available: https://www.ijste.org.
+\newline\newline
+
+[29] Generation Robots, "LIDAR URG-04LX Sensor," Robotics Sensor Reviews, vol. 19, no. 7, pp. 87–94, Sep. 2024. [Online]. Available: https://www.generationrobots.com.
+\newline\newline
+
+[30] Murata, "Basic knowledge about ultrasonic sensors: Features of each type of ultrasonic sensor," Murata Technical Articles, vol. 15, no. 3, pp. 54–61, Jul. 2024. [Online]. Available: https://www.murata.com.
+\newline\newline
+
+
+[31] Tech Zero, "IR Sensor: What is the IR Sensor or Infrared Obstacle Sensor Module," Tech Zero Guides, vol. 14, no. 5, pp. 98–105, Aug. 2024. [Online]. Available: https://techzeero.com/sensors-modules/ir-sensor/.
+\newline\newline
+
+[32] Tech Zero, "IR Sensor," Tech Zero Guides, vol. 14, no. 6, pp. 120–125, Sep. 2024. [Online]. Available: https://techzeero.com/sensors-modules/ir-sensor/.
+\newline\newline
+
+[34] "Welcome to Python.org," Python.org Technical Resources, vol. 20, no. 7, pp. 145–152, Jul. 2024. [Online]. Available: https://www.python.org/.
+\newline\newline
+
+[35] Medium, "What is Flutter? A Complete Guide to Google’s Framework," Medium Development Articles, vol. 18, no. 4, pp. 56–62, Aug. 2024. [Online]. Available: https://medium.com/@growsolutions/what-is-flutter-a-complete-guide-to-googles-framework.
+\newline\newline
+
+[36] Android Developers, "Kotlin," Android Developer Documentation, vol. 22, no. 8, pp. 220–225, Sep. 2024. [Online]. Available: https://developer.android.com.
+\newline\newline
+
+[37] Baeldung, "An Overview of the JVM Languages," Baeldung Technical Articles, vol. 15, no. 9, pp. 34–40, Oct. 2024. [Online]. Available: https://www.baeldung.com.
+\newline\newline
+
+[38] Wikipedia, "React (JavaScript library)," Wikipedia Technology Resources, vol. 13, no. 7, pp. 200–206, Sep. 2024. [Online]. Available: https://en.wikipedia.org.
+\newline\newline
+
+[39] CodeInstitute, "What is the Difference Between Web App and Mobile App?" CodeInstitute Tutorials, vol. 25, no. 3, pp. 78–85, Jul. 2024. [Online]. Available: https://codeinstitute.net.
+\newline\newline
+
+[40] TechTarget, "Mobile website vs. app: What's the difference?" TechTarget Insights, vol. 27, no. 5, pp. 101–110, Aug. 2024. [Online]. Available: https://www.techtarget.com.
+
+
+\newline\newline
+
+[41] "ROS Noetic Ninjemys," wiki.ros.org, [Online]. Available: https://wiki.ros.org/noetic.
+\newline\newline
+
+[42] "MRPT," docs.mrpt.org, [Online]. Available: https://docs.mrpt.org/reference/latest/index.html.
+\newline\newline
+
+[43] "ROS," ros.org, [Online]. Available: https://ros.org.
+\newline\newline
+
+[44] R. Teja, "Getting Started with ESP32: Introduction to ESP32," Electronics Hub, vol. 18, no. 3, pp. 67–72, Aug. 2024. [Online]. Available: https://www.electronicshub.org.
+\newline\newline
+
+[45] Raspberry Pi, "Raspberry Pi 4 Model B Specifications," Raspberry Pi, vol. 12, no. 7, pp. 132–137, Jul. 2024. [Online]. Available: https://www.raspberrypi.com/products/raspberry-pi-4-model-b/specifications/.
+\newline\newline
+
+[46] Neobotix GmbH, "Mobile Robot MP-500," Neobotix Technical Resources, vol. 20, no. 5, pp. 90–95, Sep. 2024. [Online]. Available: https://www.neobotix-robots.com/products/mobile-robots/mobile-robot-mp-400.
+\newline\newline
+
+[47] Kunkune, "Relay Modules: Understanding the Basics," Kunkune Electronics, vol. 15, no. 4, pp. 88–92, Jul. 2024. [Online]. Available: https://kunkune.co.uk/blog/understanding-the-basics-what-is-a-relay-module.
+\newline\newline
+
+[48] JYCircuitBoard, "The Working of Relay Module Circuits: From Schematic to Functionality," JYCircuitBoard Technical Blog, vol. 14, no. 6, pp. 45–51, Aug. 2024. [Online]. Available: https://www.jycircuitboard.com.
+\newline\newline
+
+[49] DigiKey, "CIT Relay and Switch," DigiKey Product Insights, vol. 16, no. 9, pp. 101–107, Oct. 2024. [Online]. Available: https://www.digikey.com/en/products/detail/cit-relay-and-switch.
+\newline\newline
+
+[50] Omega Engineering, "Technical Principles of Valves," Omega Engineering Articles, vol. 19, no. 8, pp. 140–145, Sep. 2024. [Online]. Available: https://www.omega.com/en-us/resources/valves-technical-principles.
+\newline\newline
+
+[51] Components101, "5V Single Channel Relay Module Pinout, Features, Applications, Working & Datasheet," Components101, vol. 22, no. 3, pp. 70–75, Aug. 2024. [Online]. Available: https://components101.com.
+\newline\newline
+
+[52] Pickering Test, "Electromechanical Relay (EMR) Characteristics," Pickering Test Knowledge Base, vol. 18, no. 4, pp. 102–109, Sep. 2024. [Online]. Available: https://www.pickeringtest.com/en-in/kb/hardware-topics/relay-characteristics/emr-relays.
+\newline\newline
+
+[53] IQS Directory, "Solenoid Valve Overview," IQS Technical Guides, vol. 17, no. 5, pp. 66–72, Jul. 2024. [Online]. Available: https://www.iqsdirectory.com/articles/solenoid-valve.html.
+\newline\newline
+
+[54] Norgren, "Why Use a Proportional Valve?" Norgren Blog, vol. 21, no. 6, pp. 120–125, Sep. 2024. [Online]. Available: https://www.norgren.com/en/support/blog/why-use-a-proportional-valve.
+
+\end{document}
